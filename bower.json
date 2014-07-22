@@ -1,0 +1,10 @@
+{
+  "name": "react-bootstrap-amd-test",
+  "version": "0.0.0",
+  "dependencies": {
+    "requirejs": "~2.1.9",
+    "react": "~0.11.0",
+    "react-bootstrap": "~0.11.0",
+    "bootstrap": "~3.2.0"
+  }
+}

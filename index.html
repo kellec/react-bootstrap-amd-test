@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+  <title>AMD test for rectstrap</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <style type="text/css">
+    .container {
+      padding: 100px 0;
+    }
+    .row {
+      margin-bottom: 50px;
+    }
+  </style>
+  <script src="bower_components/requirejs/require.js"></script>
+  <script>
+
+    requirejs.config( {
+      packages: [
+        {
+          name: 'react',
+          location: 'bower_components/react',
+          main: 'react'
+        },
+        {
+          name: 'react-bootstrap',
+          location: 'bower_components/react-bootstrap',
+          main: 'index'
+        }
+      ]
+    } );
+
+    require( ['react','react-bootstrap'], function(React, RB) {
+
+      var ButtonsEG = React.createClass({
+        render: function() {
+          return (RB.ButtonToolbar(null,
+              RB.Button({block: true}, 'Default'),
+              RB.Button({bsStyle: 'primary', bsSize: 'large'}, 'Primary'),
+              RB.Button({bsStyle: 'success'}, 'Success'),
+              RB.Button({bsStyle: 'info'}, 'Info'),
+              RB.Button({bsStyle: 'warning', active: true}, 'Warning'),
+              RB.Button({bsStyle: 'danger', disabled: true}, 'DANGER ZONE'),
+              RB.ButtonGroup(null,
+                RB.Button(null, 'Green eggs'),
+                RB.Button(null, 'and'),
+                RB.Button(null, 'ham')
+              ),
+              RB.ButtonGroup(null,
+                RB.Button(null, 'Green eggs'),
+                RB.Button(null, 'and'),
+                RB.DropdownButton({title: 'But what?'},
+                  RB.MenuItem({key:1}, 'Привет!'),
+                  RB.MenuItem({key:2}, 'До свидания')
+                ),
+                RB.SplitButton({title: 'But how?', dropup: true, pullRight: true},
+                  RB.MenuItem({key:1}, 'Привет!'),
+                  RB.MenuItem({key:2}, 'До свидания')
+                )
+              )
+
+            )
+          );
+        }
+      });
+
+      var PanelsEG = React.createClass({
+        render: function() {
+          return (
+            RB.Panel({bsStyle: 'success', header: '#WINNING', footer: 'quietly.'}, 'Said the purple cat'),
+            RB.Accordion(null,
+              RB.Panel({header: 'Panel 1', key: '1'}, 'Panel 1 content'),
+              RB.Panel({header: 'Panel 2', key: '2'}, 'Panel 2 content'),
+              RB.Panel({header: 'Panel 3', key: '3'}, 'Panel 3 content')
+            )
+          );
+        }
+      });
+
+      var MyModal = React.createClass({
+        render: function() {
+          return this.transferPropsTo(
+              RB.Modal({title: 'Modal heading', animation: false},
+                React.DOM.div({className: 'modal-body'},
+                  React.DOM.h4(null, 'Text in a modal'),
+                  React.DOM.p(null, 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula.'),
+                  React.DOM.h4(null, 'Overflowing text to show scroll behavior'),
+                  React.DOM.p(null, 'Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.'),
+                  React.DOM.p(null, 'Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.'),
+                  React.DOM.p(null, 'Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.'),
+                  React.DOM.p(null, 'Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.'),
+                  React.DOM.p(null, 'Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.'),
+                  React.DOM.p(null, 'Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.'),
+                  React.DOM.p(null, 'Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.'),
+                  React.DOM.p(null, 'Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.'),
+                  React.DOM.p(null, 'Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.')
+                ),
+                React.DOM.div({className: 'modal-footer'},
+                  RB.Button({onClick:this.props.onRequestHide}, 'Close')
+                )
+              )
+            );
+        }
+      });
+
+      var OverlayTriggerInstance = React.createClass({
+        render: function() {
+          return (
+            RB.ModalTrigger({modal: MyModal()},
+              RB.Button({bsStyle: "primary", bsSize:"large"}, 'Launch demo modal')
+            )
+          );
+        }
+      });
+
+      var CarouselInstance = React.createClass({
+        render: function() {
+          return (
+            RB.Carousel({ style: {width: 900} },
+              RB.CarouselItem(null,
+                React.DOM.img({ width: 900, height: 500, alt: "900x500", src: "http://fillmurray.com/g/900/500" }),
+                React.DOM.div({ className: "carousel-caption" },
+                  React.DOM.h3(null, "First slide label"),
+                  React.DOM.p(null, "Nulla vitae elit libero, a pharetra augue mollis interdum.")
+                )
+              ),
+              RB.CarouselItem(null,
+                React.DOM.img({ width: 900, height: 500, alt: "900x500", src: "http://fillmurray.com/900/500" }),
+                React.DOM.div({ className: "carousel-caption" },
+                  React.DOM.h3(null, "Second slide label"),
+                  React.DOM.p(null, "Nulla vitae elit libero, a pharetra augue mollis interdum.")
+                )
+              ),
+              RB.CarouselItem(null,
+                React.DOM.img({ width: 900, height: 500, alt: "900x500", src: "http://fillmurray.com/g/900/500" }),
+                React.DOM.div({ className: "carousel-caption" },
+                  React.DOM.h3(null, "Third slide label"),
+                  React.DOM.p(null, "Nulla vitae elit libero, a pharetra augue mollis interdum.")
+                )
+              )
+            )
+          );
+        }
+      });
+
+      var AlertAutoDismissable = React.createClass({
+        getInitialState: function() {
+          return {
+            alertVisible: false
+          };
+        },
+
+        render: function() {
+          if (this.state.alertVisible) {
+            return (
+              RB.Alert({ bsStyle: "danger", onDismiss: this.handleAlertDismiss, dismissAfter:2000 },
+                React.DOM.h4(null, "Oh snap! You got an error!"),
+                React.DOM.p(null, "But this will hide after 2 seconds.")
+              )
+            );
+          }
+
+          return (
+            RB.Button({ onClick: this.handleAlertShow }, "Show Alert")
+          );
+        },
+
+        handleAlertDismiss: function() {
+          this.setState({alertVisible: false});
+        },
+
+        handleAlertShow: function() {
+          this.setState({alertVisible: true});
+        }
+      });
+
+      var TabbedAreaInstance = React.createClass({
+        render: function() {
+          return (
+            RB.TabbedArea({ defaultActiveKey: 2 },
+              RB.TabPane({ key: 1, tab:"Tab 1" }, "TabPane 1 content"),
+              RB.TabPane({ key: 2, tab:"Tab 2" }, "TabPane 2 content")
+            )
+
+          );
+        }
+      });
+
+
+      var PositionerInstance = React.createClass({
+        render: function() {
+          return (
+            RB.ButtonToolbar(null,
+              RB.OverlayTrigger({
+                placement:"left",
+                overlay: RB.Tooltip(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              ),
+              RB.OverlayTrigger({
+                placement:"top",
+                overlay: RB.Tooltip(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              ),
+              RB.OverlayTrigger({
+                placement:"bottom",
+                overlay: RB.Tooltip(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              ),
+              RB.OverlayTrigger({
+                placement:"right",
+                overlay: RB.Tooltip(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              )
+            )
+
+          );
+        }
+      });
+
+      var PopoverInstance = React.createClass({
+        render: function() {
+          return (
+            RB.ButtonToolbar(null,
+              RB.OverlayTrigger({
+                placement:"left",
+                overlay: RB.Popover(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              ),
+              RB.OverlayTrigger({
+                placement:"top",
+                overlay: RB.Popover(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              ),
+              RB.OverlayTrigger({
+                placement:"bottom",
+                overlay: RB.Popover(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              ),
+              RB.OverlayTrigger({
+                placement:"right",
+                overlay: RB.Popover(null, React.DOM.strong(null, "Holy guacamole!"), "Check this info.")},
+                RB.Button({ bsStyle: "default" }, "Holy guacamole!")
+              )
+            )
+          );
+        }
+      });
+
+
+      React.renderComponent(RB.Alert(null, 'Yo pieter'), document.getElementById('alert'));
+      React.renderComponent(ButtonsEG(), document.getElementById('buttons'));
+      React.renderComponent(PanelsEG(), document.getElementById('panels'));
+      React.renderComponent(OverlayTriggerInstance(), document.getElementById('modal'));
+      React.renderComponent(CarouselInstance(), document.getElementById('carousel'));
+      React.renderComponent(AlertAutoDismissable(), document.getElementById('alert2'));
+      React.renderComponent(TabbedAreaInstance(), document.getElementById('tabs'));
+      React.renderComponent(PositionerInstance(), document.getElementById('positioner'));
+      React.renderComponent(PopoverInstance(), document.getElementById('popover'));
+
+    } );
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div id="alert" class="row"></div>
+    <div id="buttons" class="row"></div>
+    <div id="positioner" class="row"></div>
+    <div id="popover" class="row"></div>
+    <div id="panels" class="row"></div>
+    <div id="modal" class="row"></div>
+    <div id="carousel" class="row"></div>
+    <div id="alert2" class="row"></div>
+    <div id="tabs" class="row"></div>
+  </div>
+</body>
+</html>
